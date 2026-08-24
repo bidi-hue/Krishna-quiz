@@ -340,3 +340,11 @@ button:focus-visible {
         transition-duration: 0.01ms !important;
     }
 }
+#answers {
+    position: relative;
+    min-height: 230px;
+}
+
+.answer-btn {
+    transition: left 0.15s ease, top 0.15s ease, transform 0.15s ease;
+       }
