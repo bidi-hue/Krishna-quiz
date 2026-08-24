@@ -1,0 +1,342 @@
+/* ================================
+   KRISHNA'S VERY SERIOUS QUIZ
+   STYLE SHEET
+   ================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    background:
+        radial-gradient(circle at top left, #ffd6e7, transparent 35%),
+        radial-gradient(circle at bottom right, #d8d5ff, transparent 35%),
+        #f7f4ff;
+
+    color: #292638;
+}
+
+
+/* ================================
+   MAIN QUIZ CONTAINER
+   ================================ */
+
+.quiz-container {
+    width: 100%;
+    max-width: 520px;
+}
+
+
+/* ================================
+   SCREEN
+   ================================ */
+
+.screen {
+    background: rgba(255, 255, 255, 0.92);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 28px;
+    padding: 35px 25px;
+    text-align: center;
+
+    box-shadow:
+        0 20px 50px rgba(50, 40, 80, 0.15);
+
+    animation: appear 0.5s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ================================
+   HEADINGS
+   ================================ */
+
+h1 {
+    font-size: 32px;
+    line-height: 1.15;
+    margin-bottom: 18px;
+}
+
+h2 {
+    font-size: 23px;
+    line-height: 1.35;
+    margin: 22px 0;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+
+/* ================================
+   WARNING
+   ================================ */
+
+.warning {
+    margin: 20px 0;
+    padding: 12px;
+    border-radius: 14px;
+    background: #fff0f5;
+    font-weight: bold;
+}
+
+
+/* ================================
+   BUTTONS
+   ================================ */
+
+button {
+    border: none;
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    padding: 14px 22px;
+    min-height: 48px;
+
+    border-radius: 14px;
+
+    background: #292638;
+    color: white;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(40, 30, 60, 0.18);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+button:focus-visible {
+    outline: 3px solid #8d7cff;
+    outline-offset: 3px;
+}
+
+
+/* ================================
+   START BUTTON
+   ================================ */
+
+#start-btn,
+#restart-btn {
+    margin-top: 10px;
+    width: 100%;
+}
+
+
+/* ================================
+   QUIZ PROGRESS
+   ================================ */
+
+.progress {
+    display: inline-block;
+
+    padding: 7px 13px;
+    border-radius: 20px;
+
+    background: #eeeafd;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+/* ================================
+   ANSWER BUTTONS
+   ================================ */
+
+.answers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.answer-btn {
+    width: 100%;
+    text-align: left;
+
+    background: #ffffff;
+    color: #292638;
+
+    border: 2px solid #e7e2f2;
+
+    position: relative;
+}
+
+.answer-btn:hover {
+    background: #faf8ff;
+    border-color: #b9afff;
+}
+
+
+/* Correct answer */
+
+.answer-btn.correct {
+    background: #e7f8ed;
+    border-color: #63c887;
+}
+
+
+/* Wrong answer */
+
+.answer-btn.wrong {
+    background: #ffe8ec;
+    border-color: #f08b9c;
+}
+
+
+/* Disable buttons after answer */
+
+.answer-btn.disabled {
+    cursor: default;
+    opacity: 0.75;
+}
+
+
+/* ================================
+   FUNNY REACTION TEXT
+   ================================ */
+
+.reaction {
+    min-height: 52px;
+
+    margin: 18px 0 8px;
+    padding: 12px;
+
+    border-radius: 14px;
+
+    background: #f7f4ff;
+
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+/* ================================
+   NEXT BUTTON
+   ================================ */
+
+#next-btn {
+    margin-top: 10px;
+}
+
+
+/* ================================
+   RESULT SCREEN
+   ================================ */
+
+.score-box {
+    margin: 25px auto;
+
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #292638;
+    color: white;
+
+    font-size: 28px;
+    font-weight: bold;
+
+    box-shadow: 0 12px 30px rgba(40, 30, 60, 0.2);
+}
+
+#final-roast {
+    margin: 18px 0 25px;
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+    background: #fff0f5;
+
+    font-weight: bold;
+}
+
+
+/* ================================
+   ANIMATIONS
+   ================================ */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ================================
+   MOBILE
+   ================================ */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .screen {
+        padding: 28px 18px;
+        border-radius: 23px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 15px;
+    }
+}
+
+
+/* ================================
+   REDUCED MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
