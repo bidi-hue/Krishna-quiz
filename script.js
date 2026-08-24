@@ -1,7 +1,6 @@
 const questions = [
     {
         question: "Krishna, you wake up 20 minutes late for class. What's your first move?",
-        escape: 0,
         options: [
             {
                 text: "🏃 Get ready immediately",
@@ -28,7 +27,6 @@ const questions = [
 
     {
         question: "Someone texts: 'We need to talk.'",
-        escape: 2,
         options: [
             {
                 text: "😰 Panic instantly",
@@ -55,7 +53,6 @@ const questions = [
 
     {
         question: "Your friend says 'I'm outside.' What are you ACTUALLY doing?",
-        escape: 1,
         options: [
             {
                 text: "🚪 Already outside",
@@ -82,7 +79,6 @@ const questions = [
 
     {
         question: "You have ₹500. You're told NOT to spend it.",
-        escape: 0,
         options: [
             {
                 text: "💰 Save it",
@@ -109,7 +105,6 @@ const questions = [
 
     {
         question: "Alarm rings at 7:00 AM.",
-        escape: 0,
         options: [
             {
                 text: "⏰ Wake up immediately",
@@ -138,9 +133,6 @@ const questions = [
 
 let currentQuestion = 0;
 let score = 0;
-let escapeCount = 0;
-let escapeFinished = false;
-
 
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
@@ -155,9 +147,8 @@ const scoreEl = document.getElementById("score");
 const resultMessage = document.getElementById("result-message");
 const finalRoast = document.getElementById("final-roast");
 
-const totalQuestionsEl = document.getElementById("total-questions");
-
-totalQuestionsEl.textContent = questions.length;
+document.getElementById("total-questions").textContent =
+    questions.length;
 
 
 document.getElementById("start-btn").addEventListener("click", () => {
@@ -175,13 +166,10 @@ function showQuestion() {
     nextBtn.classList.add("hidden");
 
     answersEl.innerHTML = "";
-
-    escapeCount = 0;
-    escapeFinished = false;
+    answersEl.classList.remove("answered");
 
     document.getElementById("question-number").textContent =
         currentQuestion + 1;
-
 
     const question = questions[currentQuestion];
 
@@ -193,32 +181,12 @@ function showQuestion() {
         const button = document.createElement("button");
 
         button.type = "button";
-        button.className = "answer-btn";
+        button.className = `answer-btn float-${index + 1}`;
+
         button.textContent = option.text;
 
-        if (index === question.escape) {
 
-            button.dataset.escape = "true";
-
-            button.addEventListener("pointerdown", function(event) {
-
-                if (!escapeFinished) {
-
-                    event.preventDefault();
-
-                    escapeButton(button);
-
-                }
-
-            });
-        }
-
-
-        button.addEventListener("click", function() {
-
-            if (button.dataset.escape === "true" && !escapeFinished) {
-                return;
-            }
+        button.addEventListener("click", () => {
 
             selectAnswer(option, button);
 
@@ -232,67 +200,16 @@ function showQuestion() {
 }
 
 
-function escapeButton(button) {
-
-    escapeCount++;
-
-
-    if (escapeCount >= 5) {
-
-        escapeFinished = true;
-
-        button.style.position = "relative";
-        button.style.left = "0";
-        button.style.top = "0";
-        button.style.transform = "scale(1.05)";
-
-        reactionEl.textContent =
-            "Fine. FINE. You may catch me now. 😭";
-
-        return;
-    }
-
-
-    const container = answersEl.getBoundingClientRect();
-    const buttonRect = button.getBoundingClientRect();
-
-
-    const maxX = Math.max(
-        0,
-        container.width - buttonRect.width
-    );
-
-
-    const maxY = Math.max(
-        0,
-        container.height - buttonRect.height
-    );
-
-
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-
-    button.style.position = "absolute";
-    button.style.width = Math.min(buttonRect.width, container.width) + "px";
-
-    button.style.left = randomX + "px";
-    button.style.top = randomY + "px";
-
-    button.style.zIndex = "20";
-
-
-    reactionEl.textContent =
-        "NOPE. TOO SLOW. 😭 Catch me if you can.";
-}
-
-
 function selectAnswer(option, button) {
+
+    /* Stop ALL floating */
+
+    answersEl.classList.add("answered");
+
 
     const buttons = document.querySelectorAll(".answer-btn");
 
-
-    buttons.forEach(function(btn) {
+    buttons.forEach((btn) => {
 
         btn.disabled = true;
         btn.classList.add("disabled");
@@ -300,13 +217,21 @@ function selectAnswer(option, button) {
     });
 
 
+    /* Highlight selected answer */
+
+    button.classList.add("selected");
+
+
+    /* Show funny reaction */
+
     reactionEl.textContent = option.funny;
 
+
+    /* Score */
 
     if (option.score === 1) {
 
         score++;
-
         button.classList.add("correct");
 
     } else {
@@ -321,7 +246,7 @@ function selectAnswer(option, button) {
 }
 
 
-nextBtn.addEventListener("click", function() {
+nextBtn.addEventListener("click", () => {
 
     currentQuestion++;
 
@@ -356,12 +281,16 @@ function showResult() {
         finalRoast.textContent =
             "Diagnosis: Professional menace. Society will remember this.";
 
-    } else if (score <= 3) {
+    }
+
+    else if (score <= 3) {
 
         finalRoast.textContent =
             "Diagnosis: Slightly responsible... but we're still watching you. 👀";
 
-    } else {
+    }
+
+    else {
 
         finalRoast.textContent =
             "Diagnosis: Surprisingly responsible. Are you secretly an adult?";
@@ -371,7 +300,7 @@ function showResult() {
 }
 
 
-document.getElementById("restart-btn").addEventListener("click", function() {
+document.getElementById("restart-btn").addEventListener("click", () => {
 
     currentQuestion = 0;
     score = 0;
