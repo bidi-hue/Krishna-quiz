@@ -342,9 +342,123 @@ button:focus-visible {
 }
 #answers {
     position: relative;
-    min-height: 230px;
+    min-height: 330px;
+    margin-top: 25px;
+    overflow: hidden;
 }
 
 .answer-btn {
-    transition: left 0.15s ease, top 0.15s ease, transform 0.15s ease;
-       }
+    position: absolute;
+    width: 82%;
+    left: 9%;
+    transition: transform 0.2s ease;
+    z-index: 2;
+}
+
+/* Each answer gets a different floating path */
+
+.answer-btn.float-1 {
+    animation: floatOne 4.5s ease-in-out infinite alternate;
+}
+
+.answer-btn.float-2 {
+    animation: floatTwo 5.2s ease-in-out infinite alternate;
+}
+
+.answer-btn.float-3 {
+    animation: floatThree 4.8s ease-in-out infinite alternate;
+}
+
+.answer-btn.float-4 {
+    animation: floatFour 5.6s ease-in-out infinite alternate;
+}
+
+
+@keyframes floatOne {
+    0% {
+        transform: translate(0px, 0px) rotate(-1deg);
+    }
+
+    50% {
+        transform: translate(35px, 80px) rotate(2deg);
+    }
+
+    100% {
+        transform: translate(-25px, 155px) rotate(-2deg);
+    }
+}
+
+
+@keyframes floatTwo {
+    0% {
+        transform: translate(0px, 170px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-40px, 70px) rotate(-2deg);
+    }
+
+    100% {
+        transform: translate(25px, 10px) rotate(2deg);
+    }
+}
+
+
+@keyframes floatThree {
+    0% {
+        transform: translate(0px, 90px) rotate(-2deg);
+    }
+
+    50% {
+        transform: translate(40px, 190px) rotate(2deg);
+    }
+
+    100% {
+        transform: translate(-35px, 30px) rotate(-1deg);
+    }
+}
+
+
+@keyframes floatFour {
+    0% {
+        transform: translate(0px, 240px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-30px, 130px) rotate(-2deg);
+    }
+
+    100% {
+        transform: translate(35px, 50px) rotate(1deg);
+    }
+}
+
+
+/* Stop all floating after an answer is selected */
+
+#answers.answered .answer-btn {
+    animation-play-state: paused;
+}
+
+
+/* Make the selected answer pop */
+
+.answer-btn.selected {
+    transform: scale(1.05) !important;
+    z-index: 10;
+}
+
+
+/* Mobile */
+
+@media (max-width: 480px) {
+
+    #answers {
+        min-height: 350px;
+    }
+
+    .answer-btn {
+        width: 90%;
+        left: 5%;
+    }
+   }
